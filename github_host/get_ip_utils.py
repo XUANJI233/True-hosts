@@ -14,21 +14,23 @@ import re
 import json
 
 
-def getIpFromIpaddress(site):
+def getIpFromipapi(site):
+    '''
+    return trueip: None or ip
+    '''
     headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebkit/737.36(KHTML, like Gecke) Chrome/52.0.2743.82 Safari/537.36',
-               'Host': 'ipaddress.com'}
-    url = "https://sites.ipaddress.com/" + site
-    trueip = None
-    try:
-        res = requests.get(url, headers=headers, timeout=5)
-        soup = BeautifulSoup(res.text, 'html.parser')
-        ip = re.findall(r"\b(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}\b", res.text)
-        result = soup.find_all({'class':'origin'})
-        for c in result:
-            if len(ip) != 0:
-                trueip = ip[0]
-    except Exception as e:
-        print("查询" + site + " 时出现错误: " + str(e))
+               'Host': 'ip-api.com'}
+    url = "http://ip-api.com/json/%s?lang=zh-CN" % (site)
+    trueip = []
+    for i in range(5):
+        try:
+            res = requests.get(url, headers=headers, timeout=5)
+            res = json.loads(res.text)
+            if(res["status"] == "success") and len(re.findall(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", res["query"])) == 1:
+                if trueip[i] != res["query"]:
+                    trueip.extend = res["query"]
+        except Exception as e:
+            print("查询" + site + " 时出现错误: " + str(e))
     return trueip
 
 
@@ -72,7 +74,7 @@ def getIpFromWhatismyipaddress(site):
     return trueip
 
 
-def getIpFromipapi(site):
+def getIpmain(site):
     '''
     return trueip: None or ip
     '''
@@ -84,9 +86,11 @@ def getIpFromipapi(site):
         print (url)
         res = requests.get(url, headers=headers, timeout=10, allow_redirects=False)
         soup = BeautifulSoup(res.text, 'html.parser')
-        result = soup.find_all(id='tabpanel-dns-a')
+        result = soup.find_all(id='tabpanel-dns-aaaa')
         for c in result:
-            trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
+            trueip = re.findall(r'(?:\w{0,4}\:){5,7}\w{0,4}', c.text)
+        if not trueip:
+            trueip = getIpFromipapi(site)
     except Exception as e:
         print("查询" + site + " 时出现错误: " + str(e))
     return trueip
