@@ -7,7 +7,7 @@ on:
     branches: [ ipv6 ]
   workflow_dispatch:
   schedule:
-  - cron: "0 5/0 * * *"
+  - cron: "0 0/5 * * *"
 
 jobs:
   build:
