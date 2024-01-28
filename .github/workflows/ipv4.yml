@@ -57,7 +57,7 @@ jobs:
 
       - name: Sync Config File
         run: |
-          cp True-hosts/conf/config.json ipv6/True-hosts/conf/config.json
+          cp main/True-hosts/conf/config.json ipv6/True-hosts/conf/config.json
           cd ipv6
           git add True-hosts/conf/config.json
           git commit -m 'Sync config.json from main to ipv6'
