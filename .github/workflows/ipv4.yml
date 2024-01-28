@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
   schedule:
   - cron: "0 2 * * *"
 
@@ -26,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         if: startsWith(runner.os, 'Linux')
         with:
           path: ~/.cache/pip
@@ -46,3 +47,19 @@ jobs:
           commit_message: 'Update Host'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Checkout IPv6 Branch
+        uses: actions/checkout@v2
+        with:
+          ref: ipv6
+          path: ipv6-branch
+
+      - name: Sync Config File
+        run: |
+          cp True-hosts/conf/config.json ipv6-branch/True-hosts/conf/config.json
+          cd ipv6-branch
+          git add True-hosts/conf/config.json
+          git commit -m 'Sync config.json from main to ipv6'
+          git push origin ipv6
+
