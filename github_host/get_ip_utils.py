@@ -12,6 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import time
 
 
 def getIpFromipapi(site):
@@ -27,10 +28,9 @@ def getIpFromipapi(site):
             res = requests.get(url, headers=headers, timeout=5)
             res = json.loads(res.text)
             if(res["status"] == "success") and len(re.findall(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", res["query"])) == 1:
-                print(trueip)
-                print(i)
-                if trueip[i] != res["query"]:
+              if trueip[i] != res["query"]:
                     trueip.extend = res["query"]
+            time.sleep(1)
         except Exception as e:
             print("查询" + site + " 时出现错误: " + str(e))
     return trueip
