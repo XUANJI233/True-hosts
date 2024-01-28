@@ -90,7 +90,7 @@ def getIpmain(site):
         soup = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all(id='tabpanel-dns-aaaa')
         for c in result:
-            trueip = re.findall(r'(?:\w{0,4}\:){5,7}\w{0,4}', c.text)
+            trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
         if not trueip:
             trueip = getIpFromipapi(site)
     except Exception as e:
