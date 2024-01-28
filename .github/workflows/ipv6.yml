@@ -5,8 +5,9 @@ on:
     branches: [ ipv6 ]
   pull_request:
     branches: [ ipv6 ]
+  workflow_dispatch:
   schedule:
-  - cron: "0 2 * * *"
+  - cron: "0 5/0 * * *"
 
 jobs:
   build:
