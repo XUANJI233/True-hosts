@@ -84,7 +84,7 @@ def getIpFromipapi(site):
         print (url)
         res = requests.get(url, headers=headers, timeout=10, allow_redirects=False)
         soup = BeautifulSoup(res.text, 'html.parser')
-        result = soup.find_all(id='tabpanel-dns-aaaa')
+        result = soup.find_all(id='tabpanel-dns-a')
         for c in result:
             trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
     except Exception as e:
