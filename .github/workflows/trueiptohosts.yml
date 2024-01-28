@@ -1,4 +1,4 @@
-name: auto main CI
+name: auto ipv6 CI
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         if: startsWith(runner.os, 'Linux')
         with:
           path: ~/.cache/pip
