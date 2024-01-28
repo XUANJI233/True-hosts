@@ -46,7 +46,7 @@ class Github(object):
     def updateHost(self):
         today = datetime.date.today()
         for site in self.sites:
-            ips = get_ip_utils.getIpFromipapi(site)
+            ips = get_ip_utils.getIpmain(site)
             if ips:  # 检查 ips 是否不为 None 且为非空列表
                 for key in ips:
                     self.trueip.extend([key, site])
