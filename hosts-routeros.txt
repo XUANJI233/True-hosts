@@ -12,3 +12,10 @@
 2606:4700:20::681a:4f2	nhentai.xxx
 2606:4700:20::681a:5f2	nhentai.xxx
 2606:4700:20::ac43:4698	nhentai.xxx
+2606:4700:20::681a:c59	hentaifox.com
+2606:4700:20::681a:d59	hentaifox.com
+2606:4700:20::ac43:4869	hentaifox.com
+2606:4700:20::681a:c59i	i2.hentaifox.com
+2606:4700:20::681a:d59i	i2.hentaifox.com
+2606:4700:20::ac43:4869	i2.hentaifox.com
+2603:c022:8000:a200::10	githubfast.com
