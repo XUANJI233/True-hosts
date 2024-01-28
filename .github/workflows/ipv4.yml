@@ -53,12 +53,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ipv6
-          path: ipv6-branch
+          path: ipv6
 
       - name: Sync Config File
         run: |
-          cp True-hosts/conf/config.json ipv6-branch/True-hosts/conf/config.json
-          cd ipv6-branch
+          cp True-hosts/conf/config.json ipv6/True-hosts/conf/config.json
+          cd ipv6
           git add True-hosts/conf/config.json
           git commit -m 'Sync config.json from main to ipv6'
           git push origin ipv6
