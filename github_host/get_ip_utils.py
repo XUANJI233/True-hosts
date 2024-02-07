@@ -22,13 +22,13 @@ def getIpFromipapi(site):
     headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebkit/737.36(KHTML, like Gecke) Chrome/52.0.2743.82 Safari/537.36',
                'Host': 'ip-api.com'}
     url = "http://ip-api.com/json/%s?lang=zh-CN" % (site)
-    trueip = []
+    trueip = set()
     for i in range(3):
         try:
             res = requests.get(url, headers=headers, timeout=5)
             res = json.loads(res.text)
             if res["status"] == "success":
-                if not trueip or trueip[-1] != res["query"]:
+                if not trueip:
                     trueip.append(res["query"])
             time.sleep(2)
         except Exception as e:
@@ -94,7 +94,7 @@ def getIpmain(site):
             print(trueip)
         if not trueip:
             trueip = getIpFromipapi(site)
-            print("未查询到查询" + site + " 已切换源,最终返回为" + str(trueip) )
+            print("未查询到" + site + " 已切换源,最终返回为" + str(trueip) )
             return trueip
     except Exception as e:
         print("查询" + site + " 时出现错误: " + str(e) )
