@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4.1.1
         
       - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: 3.8
 
@@ -27,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - uses: actions/cache@v2
+      - uses: actions/@v4.0.0
         if: startsWith(runner.os, 'Linux')
         with:
           path: ~/.cache/pip
@@ -49,7 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout IPv6 Branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
         with:
           ref: ipv6
           path: ipv6
