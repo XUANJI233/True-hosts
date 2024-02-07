@@ -91,6 +91,7 @@ def getIpmain(site):
         result = soup.find_all(id='tabpanel-dns-a')
         for c in result:
             trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
+            print(trueip)
     except Exception as e:
         trueip = getIpFromipapi(site)
         print("查询" + site + " 时出现错误: " + str(e) + " 已切换源,最终返回为" + trueip )
