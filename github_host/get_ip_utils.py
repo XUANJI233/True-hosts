@@ -23,15 +23,14 @@ def getIpFromipapi(site):
                'Host': 'ip-api.com'}
     url = "http://ip-api.com/json/%s?lang=zh-CN" % (site)
     trueip = []
-    for i in range(5):
+    for i in range(3):
         try:
             res = requests.get(url, headers=headers, timeout=5)
             res = json.loads(res.text)
             if res["status"] == "success":
                 if not trueip or trueip[-1] != res["query"]:
                     trueip.append(res["query"])
-            time.sleep(1)
-            print(trueip)
+            time.sleep(2)
         except Exception as e:
             print("查询" + site + " 时出现错误: " + str(e))
     return trueip
@@ -95,7 +94,8 @@ def getIpmain(site):
             print(trueip)
         if not trueip:
             trueip = getIpFromipapi(site)
-            print("源2" +trueip)
     except Exception as e:
         print("查询" + site + " 时出现错误: " + str(e) + " 已切换源,最终返回为" + str(trueip) )
+        return trueip
+    print("查询" + site + " 完成: " + str(trueip) )
     return trueip
