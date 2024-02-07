@@ -1,6 +1,6 @@
 #*********************github 2024-02-07 update********************
 104.21.66.123	nhentai.net
-172.67.159.231	static.nhentai.net
+104.21.66.123	static.nhentai.net
 185.107.44.3	t3.nhentai.net
 185.177.127.77	t5.nhentai.net
 185.177.127.78	t7.nhentai.net
@@ -24,10 +24,10 @@
 104.26.4.242	nhentai.xxx
 104.26.5.242	nhentai.xxx
 172.67.70.152	nhentai.xxx
-172.67.70.152	i2.nhentai.xxx
-172.67.70.152	i3.nhentai.xxx
-104.26.4.242	i4.nhentai.xxx
-172.67.72.105	i.hentaifox.com
+2606:4700:20::681a:5f2	i2.nhentai.xxx
+2606:4700:20::ac43:4698	i3.nhentai.xxx
+2606:4700:20::ac43:4698	i4.nhentai.xxx
+104.26.13.89	i.hentaifox.com
 104.26.12.89	hentaifox.com
 104.26.13.89	hentaifox.com
 172.67.72.105	hentaifox.com
@@ -41,7 +41,7 @@
 104.20.61.168	hentai2read.com
 104.20.62.168	hentai2read.com
 172.67.1.206	hentai2read.com
-104.21.69.191	m8.hentaienvy.com
+172.67.212.52	m8.hentaienvy.com
 104.21.69.191	hentaienvy.com 
 172.67.212.52	hentaienvy.com 
 2a02:b49:10:16::513:1	rockpoint.xhamster.com
