@@ -29,7 +29,7 @@ def getIpFromipapi(site):
             res = json.loads(res.text)
             if res["status"] == "success":
                 if not trueip:
-                    trueip.append(res["query"])
+                    trueip.app(res["query"])
             time.sleep(2)
         except Exception as e:
             print("查询" + site + " 时出现错误: " + str(e))
