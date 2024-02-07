@@ -94,8 +94,9 @@ def getIpmain(site):
             print(trueip)
         if not trueip:
             trueip = getIpFromipapi(site)
+            print("未查询到查询" + site + " 已切换源,最终返回为" + str(trueip) )
+            return trueip
     except Exception as e:
-        print("查询" + site + " 时出现错误: " + str(e) + " 已切换源,最终返回为" + str(trueip) )
-        return trueip
+        print("查询" + site + " 时出现错误: " + str(e) )
     print("查询" + site + " 完成: " + str(trueip) )
     return trueip
