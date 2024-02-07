@@ -92,8 +92,9 @@ def getIpmain(site):
         for c in result:
             trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
             print(trueip)
+            if not trueip:
+                trueip = getIpFromipapi(site)
+                print("源2" +trueip)
     except Exception as e:
-        trueip = getIpFromipapi(site)
         print("查询" + site + " 时出现错误: " + str(e) + " 已切换源,最终返回为" + trueip )
-        return trueip
     return trueip
