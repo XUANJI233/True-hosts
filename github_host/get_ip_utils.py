@@ -27,8 +27,8 @@ def getIpFromipapi(site):
         try:
             res = requests.get(url, headers=headers, timeout=5)
             res = json.loads(res.text)
-            if(res["status"] == "success") and len(re.findall(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", res["query"])) == 1:
-                if trueip[-1] != res["query"]:
+            if res["status"] == "success":
+                if not trueip or trueip[-1] != res["query"]:
                     trueip.append(res["query"])
             time.sleep(1)
             print(trueip)
