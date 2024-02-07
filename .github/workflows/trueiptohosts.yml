@@ -27,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - uses: actions/@v4.0.0
+      - uses: actions/cache@v4.0.0
         if: startsWith(runner.os, 'Linux')
         with:
           path: ~/.cache/pip
