@@ -31,6 +31,7 @@ def getIpFromipapi(site):
               if trueip[i] != res["query"]:
                     trueip.extend = res["query"]
             time.sleep(1)
+            print(trueip)
         except Exception as e:
             print("查询" + site + " 时出现错误: " + str(e))
     return trueip
