@@ -86,13 +86,14 @@ def getIpmain(site):
     trueip = None
     try:
         print (url)
-        res = requests.get(url, headers=headers, timeout=10, allow_redirects=False)
+        res = requests.get(url, headers=headers, timeout=20, allow_redirects=False)
         soup = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all(id='tabpanel-dns-a')
         for c in result:
             trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
-        if not trueip:
-            trueip = getIpFromipapi(site)
+            if not trueip:
+                trueip = getIpFromipapi(site)
+                break
     except Exception as e:
         print("查询" + site + " 时出现错误: " + str(e))
     return trueip
