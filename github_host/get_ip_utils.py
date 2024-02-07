@@ -28,8 +28,8 @@ def getIpFromipapi(site):
             res = requests.get(url, headers=headers, timeout=5)
             res = json.loads(res.text)
             if(res["status"] == "success") and len(re.findall(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", res["query"])) == 1:
-              if trueip[i] != res["query"]:
-                    trueip.extend = res["query"]
+                if trueip[-1] != res["query"]:
+                    trueip.append(res["query"])
             time.sleep(1)
             print(trueip)
         except Exception as e:
@@ -84,7 +84,7 @@ def getIpmain(site):
     headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.4844.51 Safari/537.36',
                'Host': 'sites.ipaddress.com'}
     url = "https://sites.ipaddress.com/" + site
-    trueip = []
+    trueip = None
     try:
         print (url)
         res = requests.get(url, headers=headers, timeout=20, allow_redirects=False)
@@ -97,5 +97,5 @@ def getIpmain(site):
             trueip = getIpFromipapi(site)
             print("源2" +trueip)
     except Exception as e:
-        print("查询" + site + " 时出现错误: " + str(e) + " 已切换源,最终返回为" + trueip )
+        print("查询" + site + " 时出现错误: " + str(e) + " 已切换源,最终返回为" + str(trueip) )
     return trueip
