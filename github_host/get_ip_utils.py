@@ -84,7 +84,7 @@ def getIpmain(site):
     headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.4844.51 Safari/537.36',
                'Host': 'sites.ipaddress.com'}
     url = "https://sites.ipaddress.com/" + site
-    trueip = None
+    trueip = []
     try:
         print (url)
         res = requests.get(url, headers=headers, timeout=20, allow_redirects=False)
