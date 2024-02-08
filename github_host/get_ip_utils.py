@@ -176,7 +176,7 @@ class getIpcheck:
                 break
         print(f"Final hosts: {self.hosts}")
     
-def getIpmian(site):
+def getIpmain(site):
     checker = getIpcheck(site)
     checker.check_hosts()
     return checker.hosts
