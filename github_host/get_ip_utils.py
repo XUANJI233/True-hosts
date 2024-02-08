@@ -14,6 +14,28 @@ import re
 import json
 import time
 
+def getIpFromip138(site):
+    '''
+    return trueip: None or ip
+    '''
+    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebkit/737.36(KHTML, like Gecke) Chrome/52.0.2743.82 Safari/537.36',
+               'Host': 'site.ip138.com'}
+    url = "https://site.ip138.com/" + site
+    trueip = []
+    try:
+            res = requests.get(url, headers=headers, timeout=10)
+            time.sleep(1)
+            res = BeautifulSoup(res.text, 'html.parser')
+            result = soup.find_all(id='curadress')
+                for c in result:
+                    trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
+                if not trueip:
+                    trueip = getIpFromipapi(site)
+        return trueip
+        except Exception as e:
+            print("查询" + site + " 时出现错误: " + str(e))
+    return trueip
+
 
 def getIpFromipapi(site):
     '''
@@ -83,17 +105,15 @@ def getIpmain(site):
     headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.4844.51 Safari/537.36',
                'Host': 'sites.ipaddress.com'}
     url = "https://sites.ipaddress.com/" + site
-    trueip = None
+    trueip = []
     try:
-        print (url)
         res = requests.get(url, headers=headers, timeout=20, allow_redirects=False)
         soup = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all(id='tabpanel-dns-a')
         for c in result:
             trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
-            print(trueip)
         if not trueip:
-            trueip = getIpFromipapi(site)
+            trueip = getIpFromip138(site)
             print("未查询到" + site + " 已切换源,最终返回为" + str(trueip) )
             return trueip
     except Exception as e:
