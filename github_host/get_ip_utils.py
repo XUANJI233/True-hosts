@@ -32,7 +32,7 @@ def getIpFromip138(site):
         if not trueip:
             trueip = getIpFromipapi(site)
             return trueip
-        except Exception as e:
+    except Exception as e:
             print("查询" + site + " 时出现错误: " + str(e))
     return trueip
 
