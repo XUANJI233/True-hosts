@@ -129,13 +129,14 @@ def getIpipaddress(site):
     print("sites.ipaddress查询" + site + " 完成: " + str(trueip) )
     return trueip
 
-class getIpmain(site):
-    hosts = getIpipaddress(site)
-    ports = [443, 80]
+class getIpmain:
+    
     class HostChecker:
-        def __init__(self):
+        def __init__(self,site):
             self.lock = threading.Lock()
             self.good_hosts = []
+            hosts = getIpipaddress(site)
+            ports = [443, 80]
         def tcping(self, host, port):
             try:
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
