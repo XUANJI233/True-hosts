@@ -25,7 +25,7 @@ async def get_page_html(url):
     await browser.close()
     return content
 
-async def getIpFromip138(site):
+def getIpFromip138(site):
     url = "https://site.ip138.com/" + site
     page_content = await get_page_html(url)
     soup = BeautifulSoup(page_content, 'html.parser')
@@ -34,9 +34,7 @@ async def getIpFromip138(site):
     trueip = []
     try:
         for c in result:
-            ip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
-            if ip:
-                trueip.append(ip[0])
+            trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
         if not trueip:
             trueip = getIpFromipapi(site)
     except Exception as e:
