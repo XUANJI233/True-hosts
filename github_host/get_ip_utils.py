@@ -26,11 +26,10 @@ def getIpFromip138(site):
     url = "https://site.ip138.com/" + site
     geturl = "https://site.ip138.com/domain/read.do?domain=" + site
     trueip = []
-    for i in range(3):
+    for i in range(10):
         try:
-            requests.get(url, headers=headers, timeout=(10, 5))
-            time.sleep(2)
-            requests.get(geturl, headers=headers, timeout=(5, 20))
+            requests.get(url, headers=headers, timeout=(10, 2))
+            res = requests.get(geturl, headers=headers, timeout=(2, 5))
             res = json.loads(res.text)
             if res["status"] == True:
                 for item in res["data"]:
