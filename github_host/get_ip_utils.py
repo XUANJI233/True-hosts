@@ -25,16 +25,12 @@ def getIpFromip138(site):
     trueip = []
     try:
         requests.get(url, headers=headers, timeout=5)
-        time.sleep(1)
+        time.sleep(2)
         res = requests.get(geturl, headers=headers)
         res = json.loads(res.text)
-        print(res)
-        print(res["status"])
         if res["status"] == True:
-            print('z')
             for item in res["data"]:
                 trueip.append(item["ip"])
-                print(trueip)
         if not trueip:
             trueip = getIpFromipapi(site)
     except Exception as e:
