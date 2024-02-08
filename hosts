@@ -5,8 +5,8 @@
 185.199.111.133	raw.githubusercontent.com
 172.253.63.94	fonts.gstatic.com
 142.251.111.95	fonts.googleapis.com
-104.21.66.123	nhentai.net
-104.21.66.123	static.nhentai.net
+172.67.159.231	nhentai.net
+172.67.159.231	static.nhentai.net
 185.107.44.3	t3.nhentai.net
 185.177.127.77	t5.nhentai.net
 185.177.127.78	t7.nhentai.net
@@ -31,9 +31,9 @@
 104.26.5.242	nhentai.xxx
 172.67.70.152	nhentai.xxx
 104.26.5.242	i2.nhentai.xxx
-172.67.70.152	i3.nhentai.xxx
-2606:4700:20::681a:4f2	i4.nhentai.xxx
-104.26.13.89	i.hentaifox.com
+2606:4700:20::ac43:4698	i3.nhentai.xxx
+2606:4700:20::681a:5f2	i4.nhentai.xxx
+2606:4700:20::ac43:4869	i.hentaifox.com
 104.26.12.89	hentaifox.com
 104.26.13.89	hentaifox.com
 172.67.72.105	hentaifox.com
@@ -47,10 +47,10 @@
 104.20.61.168	hentai2read.com
 104.20.62.168	hentai2read.com
 172.67.1.206	hentai2read.com
-2606:4700:3035::ac43:d434	m8.hentaienvy.com
+104.21.69.191	m8.hentaienvy.com
 104.21.69.191	hentaienvy.com 
 172.67.212.52	hentaienvy.com 
-2a02:b49:10:16::513:1	rockpoint.xhamster.com
+45.138.129.34	rockpoint.xhamster.com
 104.26.12.89	i2.hentaifox.com
 104.26.13.89	i2.hentaifox.com
 172.67.72.105	i2.hentaifox.com
@@ -74,5 +74,5 @@
 172.253.115.95	content-autofill.googleapis.com
 172.253.122.95	content-autofill.googleapis.com
 132.145.87.61	githubfast.com
-2606:4700:3037::ac43:d5ea	assets.githubfast.com
+104.21.37.222	assets.githubfast.com
 132.145.87.61	usercontent.githubfast.com
