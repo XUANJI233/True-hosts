@@ -18,16 +18,15 @@ def getIpFromip138(site):
     '''
     return trueip: None or ip
     '''
-    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebkit/737.36(KHTML, like Gecke) Chrome/52.0.2743.82 Safari/537.36',
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
                'Host': 'site.ip138.com'}
     url = "https://site.ip138.com/" + site
     geturl = "https://site.ip138.com/domain/read.do?domain=" + site
     trueip = []
     for i in range(3):
         try:
-            requests.get(url, headers=headers, timeout=15)
+            requests.get(url, headers=headers, timeout=(5, 20))
             time.sleep(1)
-            res = requests.get(geturl, headers=headers)
             res = json.loads(res.text)
             if res["status"] == True:
                 for item in res["data"]:
@@ -104,7 +103,7 @@ def getIpFromWhatismyipaddress(site):
     return trueip
 
 
-def getIpmain(site):
+def getIpipaddress(site):
     '''
     return trueip: None or ip
     '''
@@ -129,3 +128,50 @@ def getIpmain(site):
         trueip = getIpFromip138(site)
     print("sites.ipaddress查询" + site + " 完成: " + str(trueip) )
     return trueip
+
+class getIpmain(site):
+    hosts = getIpipaddress(site)
+    ports = [443, 80]
+    class HostChecker:
+        def __init__(self):
+            self.lock = threading.Lock()
+            self.good_hosts = []
+        def tcping(self, host, port):
+            try:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(5)  # 设置超时时间
+                sock.connect((host, port))
+                print(f"TCP ping to {host}:{port} succeeded")
+                with self.lock:
+                    self.good_hosts.append(host)
+            except socket.error as e:
+                print(f"TCP ping to {host}:{port} failed: {e}")
+            finally:
+            sock.close()
+            
+    checker = HostChecker()
+    for port in ports:
+        checker.good_hosts = []# 清空好的主机列表
+        threads = []# 创建并启动线程
+        for host in hosts:
+            thread = threading.Thread(target=checker.tcping, args=(host, port))
+            thread.start()
+            threads.append(thread)
+        for thread in threads:# 等待所有线程完成
+            thread.join()
+
+    # 计算失败的测试的比例
+        bad_hosts = [host for host in hosts if host not in checker.good_hosts]
+        failure_rate = len(bad_hosts) / len(hosts)
+    
+        if failure_rate < 0.9:
+            hosts = checker.good_hosts
+
+    # 如果有任何好的主机，或者失败的测试的比例低于30%，就停止尝试其他端口
+        if checker.good_hosts :
+            break
+    print(f"Final hosts: {hosts}")
+    return hosts
+
+
+
