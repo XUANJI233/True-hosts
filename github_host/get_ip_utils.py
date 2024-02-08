@@ -28,8 +28,9 @@ def getIpFromip138(site):
     trueip = []
     for i in range(3):
         try:
-            res = requests.get(url, headers=headers, timeout=(5, 20))
-            time.sleep(1)
+            requests.get(url, headers=headers, timeout=(10, 5))
+            time.sleep(2)
+            requests.get(geturl, headers=headers, timeout=(5, 20))
             res = json.loads(res.text)
             if res["status"] == True:
                 for item in res["data"]:
