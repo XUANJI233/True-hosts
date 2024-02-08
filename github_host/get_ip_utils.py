@@ -24,8 +24,8 @@ def getIpFromip138(site):
     trueip = []
     try:
         res = requests.get(url, headers=headers, timeout=10)
-        time.sleep(1)
-        res = BeautifulSoup(res.text, 'html.parser')
+        time.sleep(2)
+        soup = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all(id='curadress')
         print(result)
         for c in result:
