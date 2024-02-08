@@ -130,9 +130,10 @@ def getIpipaddress(site):
     return trueip
 
 class getIpmain:
-    def __init__(site):
-        hosts = getIpipaddress(site)
-        ports = [443, 80]
+    def __init__(self, site):
+        self.hosts = getIpipaddress(site)
+        self.ports = [443, 80]
+
     class HostChecker:
         def __init__(self):
             self.lock = threading.Lock()
@@ -149,30 +150,31 @@ class getIpmain:
             except socket.error as e:
                 print(f"TCP ping to {host}:{port} failed: {e}")
             finally:
-            sock.close()
-            
-    checker = HostChecker()
-    for port in ports:
-        checker.good_hosts = []# 清空好的主机列表
-        threads = []# 创建并启动线程
-        for host in hosts:
-            thread = threading.Thread(target=checker.tcping, args=(host, port))
-            thread.start()
-            threads.append(thread)
-        for thread in threads:# 等待所有线程完成
-            thread.join()
+                sock.close()
 
-    # 计算失败的测试的比例
-        bad_hosts = [host for host in hosts if host not in checker.good_hosts]
-        failure_rate = len(bad_hosts) / len(hosts)
-    
-        if failure_rate < 0.9:
-            hosts = checker.good_hosts
+    def check_hosts(self):
+        checker = self.HostChecker()
+        for port in self.ports:
+            checker.good_hosts = []  # 清空好的主机列表
+            threads = []  # 创建并启动线程
+            for host in self.hosts:
+                thread = threading.Thread(target=checker.tcping, args=(host, port))
+                thread.start()
+                threads.append(thread)
+            for thread in threads:  # 等待所有线程完成
+                thread.join()
 
-    # 如果有任何好的主机，或者失败的测试的比例低于30%，就停止尝试其他端口
-        if checker.good_hosts :
-            break
-    print(f"Final hosts: {hosts}")
+            # 计算失败的测试的比例
+            bad_hosts = [host for host in self.hosts if host not in checker.good_hosts]
+            failure_rate = len(bad_hosts) / len(self.hosts)
+
+            if failure_rate < 0.9:
+                self.hosts = checker.good_hosts
+
+            # 如果有任何好的主机，就停止尝试其他端口
+            if checker.good_hosts:
+                break
+        print(f"Final hosts: {self.hosts}")
     return hosts
 
 
