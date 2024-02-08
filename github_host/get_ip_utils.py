@@ -33,9 +33,12 @@ def getIpFromip138(site):
                 for item in res["data"]:
                     trueip.append(item["ip"])
                     break
+            time.sleep(1)
         except Exception as e:
-            print("查询" + site + " 时出现错误: " + str(e))
+            print("site.ip138查询" + site + " 时出现错误: " + str(e))
+            trueip = getIpFromipapi(site)
     if not trueip:
+        print("site.ip138未查询到" + site + "已切换源")
         trueip = getIpFromipapi(site)
     return trueip
 
@@ -116,10 +119,13 @@ def getIpmain(site):
         for c in result:
             trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
         if not trueip:
+            
+            print("sites.ipaddress未查询到" + site + " 已切换源")
             trueip = getIpFromip138(site)
-            print("未查询到" + site + " 已切换源,最终返回为" + str(trueip) )
+            print(site + " 最终返回为" + str(trueip) )
             return trueip
     except Exception as e:
-        print("查询" + site + " 时出现错误: " + str(e) )
-    print("查询" + site + " 完成: " + str(trueip) )
+        print("sites.ipaddress查询" + site + " 时出现错误: " + str(e) )
+        trueip = getIpFromip138(site)
+    print("sites.ipaddress查询" + site + " 完成: " + str(trueip) )
     return trueip
