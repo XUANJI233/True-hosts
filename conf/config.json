@@ -1,5 +1,8 @@
 {
     "sites": [
+        "raw.githubusercontent.com",
+        "fonts.gstatic.com",
+        "fonts.googleapis.com",
         "nhentai.net",
         "static.nhentai.net",
         "t3.nhentai.net",
