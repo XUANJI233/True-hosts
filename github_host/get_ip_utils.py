@@ -13,28 +13,28 @@ from bs4 import BeautifulSoup
 import re
 import json
 import time
-import asyncio
-from pyppeteer import launch
-from bs4 import BeautifulSoup
-
-async def get_page_html(url):
-    browser = await launch()
-    page = await browser.newPage()
-    await page.goto(url)
-    content = await page.content()
-    await browser.close()
-    return content
 
 def getIpFromip138(site):
+    '''
+    return trueip: None or ip
+    '''
+    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebkit/737.36(KHTML, like Gecke) Chrome/52.0.2743.82 Safari/537.36',
+               'Host': 'site.ip138.com'}
     url = "https://site.ip138.com/" + site
-    page_content = asyncio.run(get_page_html(url))
-    soup = BeautifulSoup(page_content, 'html.parser')
-    curadress_div = soup.find('div', id='curadress')
-    result = curadress_div.find_all('a')
+    geturl = "https://site.ip138.com/domain/read.do?domain=" + site
     trueip = []
     try:
-        for c in result:
-            trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
+        requests.get(url, headers=headers, timeout=5)
+        time.sleep(1)
+        res = requests.get(geturl, headers=headers)
+        res = json.loads(res.text)
+        print(res)
+        print(res["status"])
+        if res["status"] == True:
+            print('z')
+            for item in res["data"]:
+                trueip.append(item["ip"])
+                print(trueip)
         if not trueip:
             trueip = getIpFromipapi(site)
     except Exception as e:
