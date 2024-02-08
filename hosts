@@ -21,6 +21,7 @@
 128.242.245.180	nhentai.net
 96.44.137.28	nhentai.net
 154.83.14.134	nhentai.net
+115.126.100.160	nhentai.net
 128.121.243.228	nhentai.net
 172.67.159.231	nhentai.net
 67.228.102.32	nhentai.net
@@ -40,6 +41,7 @@
 128.242.245.244	nhentai.net
 31.13.75.12	nhentai.net
 104.21.66.123	nhentai.net
+199.59.148.246	nhentai.net
 75.126.135.131	nhentai.net
 31.13.88.26	nhentai.net
 104.244.46.63	nhentai.net
@@ -53,10 +55,8 @@
 108.160.170.41	nhentai.net
 199.16.156.38	nhentai.net
 4.78.139.54	nhentai.net
+172.67.159.231	static.nhentai.net
 185.107.44.3	t3.nhentai.net
-185.177.127.77	t5.nhentai.net
-185.177.127.78	t7.nhentai.net
-185.107.44.3	i3.nhentai.net
 185.177.127.77	i5.nhentai.net
 104.244.43.248	i7.nhentai.net
 31.13.96.193	i7.nhentai.net
@@ -78,7 +78,8 @@
 104.26.4.242	nhentai.xxx
 104.26.5.242	nhentai.xxx
 172.67.70.152	nhentai.xxx
-172.67.72.105	i.hentaifox.com
+172.67.70.152	i2.nhentai.xxx
+172.67.70.152	i3.nhentai.xxx
 104.26.12.89	hentaifox.com
 104.26.13.89	hentaifox.com
 172.67.72.105	hentaifox.com
@@ -92,7 +93,6 @@
 104.20.61.168	hentai2read.com
 104.20.62.168	hentai2read.com
 172.67.1.206	hentai2read.com
-2606:4700:3035::ac43:d434	m8.hentaienvy.com
 104.21.69.191	hentaienvy.com 
 172.67.212.52	hentaienvy.com 
 104.26.12.89	i2.hentaifox.com
@@ -118,5 +118,5 @@
 172.253.115.95	content-autofill.googleapis.com
 172.253.122.95	content-autofill.googleapis.com
 132.145.87.61	githubfast.com
-2606:4700:3036::6815:25de	assets.githubfast.com
+104.21.37.222	assets.githubfast.com
 132.145.87.61	usercontent.githubfast.com
