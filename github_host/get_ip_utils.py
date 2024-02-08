@@ -23,15 +23,15 @@ def getIpFromip138(site):
     url = "https://site.ip138.com/" + site
     trueip = []
     try:
-            res = requests.get(url, headers=headers, timeout=10)
-            time.sleep(1)
-            res = BeautifulSoup(res.text, 'html.parser')
-            result = soup.find_all(id='curadress')
-                for c in result:
-                    trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
-                if not trueip:
-                    trueip = getIpFromipapi(site)
-        return trueip
+        res = requests.get(url, headers=headers, timeout=10)
+        time.sleep(1)
+        res = BeautifulSoup(res.text, 'html.parser')
+        result = soup.find_all(id='curadress')
+        for c in result:
+            trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
+        if not trueip:
+            trueip = getIpFromipapi(site)
+            return trueip
         except Exception as e:
             print("查询" + site + " 时出现错误: " + str(e))
     return trueip
