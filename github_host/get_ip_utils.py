@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 import re
 import json
 import time
+import asyncio
 from pyppeteer import launch
 from bs4 import BeautifulSoup
 
@@ -26,7 +27,7 @@ def get_page_html(url):
 
 def getIpFromip138(site):
     url = "https://site.ip138.com/" + site
-    page_content = await get_page_html(url)
+    page_content = get_page_html(url)
     soup = BeautifulSoup(page_content, 'html.parser')
     curadress_div = soup.find('div', id='curadress')
     result = curadress_div.find_all('a')
