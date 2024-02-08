@@ -21,20 +21,25 @@ def getIpFromip138(site):
     '''
     return trueip: None or ip
     '''
-    headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 14; 22127RK46C; Build/UKQ1.230804.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.4280.141 Mobile Safari/537.36 Firefox-KiToBrowser/120.0',
-               'Host': 'site.ip138.com'}
-    url = "https://site.ip138.com/" + site
-    geturl = "https://site.ip138.com/domain/read.do?domain=" + site
+    url = 'https://site.ip138.com/domain/read.do'
+    params = {
+        'domain': site,
+        'time': int(time.time() * 1000)
+        }
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 14; 22127RK46C; Build/UKQ1.230804.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.4280.141 Mobile Safari/537.36 Firefox-KiToBrowser/120.0',
+        'Referer': 'https://site.ip138.com/' + site
+            }
     trueip = []
-    for i in range(10):
+    for i in range(3):
         try:
-            requests.get(url, headers=headers, timeout=(10, 2))
-            res = requests.get(geturl, headers=headers, timeout=(2, 5))
-            res = json.loads(res.text)
+            res = requests.get(url, params=params, headers=headers)
+            print(res.json())
+            res = res.json()
             if res["status"] == True:
                 for item in res["data"]:
                     trueip.append(item["ip"])
-                    break
+                break
             time.sleep(1)
         except Exception as e:
             print("site.ip138查询" + site + " 时出现错误: " + str(e))
