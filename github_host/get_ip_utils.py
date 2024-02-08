@@ -27,14 +27,13 @@ def getIpFromip138(site):
         'time': int(time.time() * 1000)
         }
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 14; 22127RK46C; Build/UKQ1.230804.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.4280.141 Mobile Safari/537.36 Firefox-KiToBrowser/120.0',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.129/130 Safari/537.36',
         'Referer': 'https://site.ip138.com/' + site
             }
     trueip = []
     for i in range(3):
         try:
             res = requests.get(url, params=params, headers=headers)
-            print(res.json())
             res = res.json()
             if res["status"] == True:
                 for item in res["data"]:
