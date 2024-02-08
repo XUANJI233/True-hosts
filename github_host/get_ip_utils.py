@@ -27,6 +27,7 @@ def getIpFromip138(site):
         time.sleep(1)
         res = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all(id='curadress')
+        print(result)
         for c in result:
             trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
         if not trueip:
