@@ -129,7 +129,7 @@ def getIpipaddress(site):
     print("sites.ipaddress查询" + site + " 完成: " + str(trueip) )
     return trueip
 
-class getIpmain:
+class getIpcheck:
     def __init__(self, site):
         self.hosts = getIpipaddress(site)
         self.ports = [443, 80]
@@ -175,7 +175,12 @@ class getIpmain:
             if checker.good_hosts:
                 break
         print(f"Final hosts: {self.hosts}")
-    return hosts
+    
+def getIpmian(site):
+    checker = getIpcheck(site)
+    checker.check_hosts()
+    return checker.hosts
+
 
 
 
