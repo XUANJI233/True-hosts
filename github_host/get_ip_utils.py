@@ -13,11 +13,10 @@ from bs4 import BeautifulSoup
 import re
 import json
 import time
-import asyncio
 from pyppeteer import launch
 from bs4 import BeautifulSoup
 
-async def get_page_html(url):
+def get_page_html(url):
     browser = await launch()
     page = await browser.newPage()
     await page.goto(url)
