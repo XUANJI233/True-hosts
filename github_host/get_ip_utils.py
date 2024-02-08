@@ -21,7 +21,7 @@ def getIpFromip138(site):
     '''
     return trueip: None or ip
     '''
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+    headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 14; 22127RK46C; Build/UKQ1.230804.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.4280.141 Mobile Safari/537.36 Firefox-KiToBrowser/120.0',
                'Host': 'site.ip138.com'}
     url = "https://site.ip138.com/" + site
     geturl = "https://site.ip138.com/domain/read.do?domain=" + site
