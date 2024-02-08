@@ -23,18 +23,20 @@ def getIpFromip138(site):
     url = "https://site.ip138.com/" + site
     geturl = "https://site.ip138.com/domain/read.do?domain=" + site
     trueip = []
-    try:
-        requests.get(url, headers=headers, timeout=5)
-        time.sleep(2)
-        res = requests.get(geturl, headers=headers)
-        res = json.loads(res.text)
-        if res["status"] == True:
-            for item in res["data"]:
-                trueip.append(item["ip"])
-        if not trueip:
-            trueip = getIpFromipapi(site)
-    except Exception as e:
-        print("查询" + site + " 时出现错误: " + str(e))
+    for i in range(3):
+        try:
+            requests.get(url, headers=headers, timeout=15)
+            time.sleep(1)
+            res = requests.get(geturl, headers=headers)
+            res = json.loads(res.text)
+            if res["status"] == True:
+                for item in res["data"]:
+                    trueip.append(item["ip"])
+                    break
+        except Exception as e:
+            print("查询" + site + " 时出现错误: " + str(e))
+    if not trueip:
+        trueip = getIpFromipapi(site)
     return trueip
 
 
