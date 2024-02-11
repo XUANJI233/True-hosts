@@ -65,6 +65,34 @@ def check_robots_txt(url):
         print(f"检查robots.txt失败: {e}  默认允许")       
     return can_fetch
     
+def getIpipaddress(site):
+    '''
+    return trueip: None or ip
+    '''
+    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.4844.51 Safari/537.36',
+               'Host': 'sites.ipaddress.com'}
+    url = "https://sites.ipaddress.com/" + site
+    trueip = []
+    if not check_robots_txt(url):
+        trueip = getIpFromip138(site)
+        return trueip
+    try:
+        res = session.get(url, headers=headers, timeout=20, allow_redirects=False)
+        soup = BeautifulSoup(res.text, 'html.parser')
+        result = soup.find_all(id='tabpanel-dns-a')
+        for c in result:
+            trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
+        if not trueip:
+            
+            print("sites.ipaddress未查询到" + site + " 已切换源")
+            trueip = getIpFromip138(site)
+            return trueip
+    except Exception as e:
+        print("sites.ipaddress查询" + site + " 时出现错误: " + str(e) )
+        trueip = getIpFromip138(site)
+    print("sites.ipaddress查询" + site + " 完成: " + str(trueip) )
+    return trueip
+
 
 def getIpFromip138(site):
     '''
@@ -98,6 +126,7 @@ def getIpFromip138(site):
     if not trueip:
         print("site.ip138未查询到" + site + "已切换源")
         trueip = getIpFromipapi(site)
+    print("site.ip138查询" + site + " 完成: " + str(trueip) )
     return trueip
 
 
@@ -124,7 +153,8 @@ def getIpFromipapi(site):
                     trueip.add(res["query"])
             time.sleep(2)
         except Exception as e:
-            print("查询" + site + " 时出现错误: " + str(e))
+            print("ip-api.com查询" + site + " 时出现错误: " + str(e))
+    print("ip-api.com查询" + site + " 完成: " + str(trueip) )
     return trueip
 
 
@@ -167,35 +197,6 @@ def getIpFromWhatismyipaddress(site):
         print("查询" + site + " 时出现错误: " + str(e))
     return trueip
 
-
-def getIpipaddress(site):
-    '''
-    return trueip: None or ip
-    '''
-    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.4844.51 Safari/537.36',
-               'Host': 'sites.ipaddress.com'}
-    url = "https://sites.ipaddress.com/" + site
-    trueip = []
-    if not check_robots_txt(url):
-        trueip = getIpFromip138(site)
-        return trueip
-    try:
-        res = session.get(url, headers=headers, timeout=20, allow_redirects=False)
-        soup = BeautifulSoup(res.text, 'html.parser')
-        result = soup.find_all(id='tabpanel-dns-a')
-        for c in result:
-            trueip = re.findall(r'(?:[0-9]{1,3}\.){3}[0-9]{1,3}', c.text)
-        if not trueip:
-            
-            print("sites.ipaddress未查询到" + site + " 已切换源")
-            trueip = getIpFromip138(site)
-            print(site + " 最终返回为" + str(trueip) )
-            return trueip
-    except Exception as e:
-        print("sites.ipaddress查询" + site + " 时出现错误: " + str(e) )
-        trueip = getIpFromip138(site)
-    print("sites.ipaddress查询" + site + " 完成: " + str(trueip) )
-    return trueip
 
 class getIpcheck:
     def __init__(self, site):
@@ -244,7 +245,7 @@ class getIpcheck:
             # 如果有任何好的主机，就停止尝试其他端口
             if checker.good_hosts:
                 break
-        print(f"Final hosts: {self.hosts}")
+        print("{site} 最终返回为: {self.hosts}")
     
 def getIpmain(site):
     checker = getIpcheck(site)
