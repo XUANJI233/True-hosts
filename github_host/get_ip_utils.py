@@ -63,7 +63,7 @@ def getIpFromip138(site):
         trueip = getIpFromip138(site)
         return trueip
     '''
-    if check_robots_txt(url + ):
+    if check_robots_txt(url):
         trueip = getIpFromipapi(site)
         return trueip
     for i in range(3):
