@@ -209,9 +209,11 @@ class getIpcheck:
             for thread in threads:  # 等待所有线程完成
                 thread.join()
 
+            failure_rate = 1.1
+            if self.hosts:
             # 计算失败的测试的比例
-            bad_hosts = [host for host in self.hosts if host not in checker.good_hosts]
-            failure_rate = len(bad_hosts) / len(self.hosts)
+                bad_hosts = [host for host in self.hosts if host not in checker.good_hosts]
+                failure_rate = len(bad_hosts) / len(self.hosts)
 
             if failure_rate < 0.9:
                 self.hosts = checker.good_hosts
