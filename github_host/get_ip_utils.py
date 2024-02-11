@@ -51,7 +51,7 @@ def check_robots_txt(url):
     bot_agent = f'MyGithubActionsBot/1.0 (+https://github.com/{repo_info}; run_id={run_id})'
     
     hostname = urlparse(url).hostname
-    robots_url = urljoin(url, "/robots.txt")
+    robots_url = urljoin(hostname, "/robots.txt")
     
     rp = RobotFileParser()
     rp.set_url(robots_url)
@@ -73,10 +73,10 @@ def getIpipaddress(site):
                'Host': 'sites.ipaddress.com'}
     url = "https://sites.ipaddress.com/" + site
     trueip = []
-    if not check_robots_txt(url):
-        trueip = getIpFromip138(site)
-        return trueip
     try:
+        if not check_robots_txt(url):
+            trueip = getIpFromip138(site)
+            return trueip
         res = session.get(url, headers=headers, timeout=20, allow_redirects=False)
         soup = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all(id='tabpanel-dns-a')
@@ -245,7 +245,7 @@ class getIpcheck:
             # 如果有任何好的主机，就停止尝试其他端口
             if checker.good_hosts:
                 break
-        print("{site} 最终返回为: {self.hosts}")
+        print(\f'{site} 最终返回为: {self.hosts}')
     
 def getIpmain(site):
     checker = getIpcheck(site)
