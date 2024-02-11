@@ -26,10 +26,10 @@ session = requests.Session()
 
 # 创建一个 Retry 对象
 retry_strategy = Retry(
-    total=3,  # 总共尝试的次数
-    backoff_factor=1,  # 指数退避延迟（第 n 次重试将等待 {backoff factor} * (2 ^ (n - 1)) 秒）
-    status_forcelist=[429, 500, 502, 503, 504],  # 需要重试的HTTP状态码列表
-    method_whitelist=["GET"] 
+    total=3,  
+    backoff_factor=1, 
+    status_forcelist=[429, 500, 502, 503, 504],  
+    allowed_methods=["GET", "POST"] # 不清楚POST使用session好不好，留个接口
 )
 
 # 将 Retry 对象添加到已经创建的 Session 对象中
