@@ -245,7 +245,7 @@ class getIpcheck:
             # 如果有任何好的主机，就停止尝试其他端口
             if checker.good_hosts:
                 break
-        print(f'{self.site} 最终返回为: {self.hosts}')
+        print(f'最终返回为: {self.hosts}')
 
 def getIpmain(site):
     checker = getIpcheck(site)
