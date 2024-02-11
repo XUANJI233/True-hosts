@@ -36,7 +36,7 @@ def check_robots_txt(url):
     try:
         rp.read()
         can_fetch = rp.can_fetch(bot_agent, url)  # 使用原始url进行权限查询
-        if not can_fetch:
+        if can_fetch:
             print(f"{hostname} :命中robots.txt，已跳过")
     except Exception as e:
         print(f"检查robots.txt失败: {e}  默认允许")       
