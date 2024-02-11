@@ -21,7 +21,7 @@ from urllib.robotparser import RobotFileParser
 
 # 遵循robots.txt
 def check_robots_txt(url):
-    can_fetch = None
+    can_fetch = True
     # 获取 GitHub Actions 仓库和运行 ID
     run_id = os.getenv('GITHUB_RUN_ID')
     repo_info = os.getenv('GITHUB_REPOSITORY')  # 获取仓库信息
@@ -57,7 +57,13 @@ def getIpFromip138(site):
         'Referer': 'https://site.ip138.com/' + site
             }
     trueip = []
-    if check_robots_txt(url):
+    '''
+    该网站允许调用(45次/min)，默认不检查
+    if not check_robots_txt(url):
+        trueip = getIpFromip138(site)
+        return trueip
+    '''
+    if check_robots_txt(url + ):
         trueip = getIpFromipapi(site)
         return trueip
     for i in range(3):
@@ -147,7 +153,7 @@ def getIpipaddress(site):
                'Host': 'sites.ipaddress.com'}
     url = "https://sites.ipaddress.com/" + site
     trueip = []
-    if check_robots_txt(url):
+    if not check_robots_txt(url):
         trueip = getIpFromip138(site)
         return trueip
     try:
