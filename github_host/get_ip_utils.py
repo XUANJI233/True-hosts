@@ -59,7 +59,7 @@ def check_robots_txt(url):
     try:
         rp.read()
         can_fetch = rp.can_fetch(bot_agent, url)  # 使用原始url进行权限查询
-        if can_fetch:
+        if not can_fetch:
             print(f"{hostname} :命中robots.txt，已跳过")
     except Exception as e:
         print(f"检查robots.txt失败: {e}  默认允许")       
@@ -80,12 +80,6 @@ def getIpFromip138(site):
         'Referer': 'https://site.ip138.com/' + site
             }
     trueip = []
-    '''
-    该网站允许调用(45次/min)，默认不检查
-    if not check_robots_txt(url):
-        trueip = getIpFromip138(site)
-        return trueip
-    '''
     if check_robots_txt(url):
         trueip = getIpFromipapi(site)
         return trueip
@@ -115,6 +109,12 @@ def getIpFromipapi(site):
                'Host': 'ip-api.com'}
     url = "http://ip-api.com/json/%s?lang=zh-CN" % (site)
     trueip = set()
+    '''
+    该网站允许调用(45次/min)，默认不检查
+    if not check_robots_txt(url):
+        trueip = getIpFromip138(site)
+        return trueip
+    '''
     for i in range(3):
         try:
             res = session.get(url, headers=headers, timeout=5)
