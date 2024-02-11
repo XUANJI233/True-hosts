@@ -15,7 +15,32 @@ import json
 import time
 import socket
 import threading
+from urllib.parse import urlparse, urljoin
+from urllib.robotparser import RobotFileParser
 
+# 遵循robots.txt
+def check_robots_txt(url):
+    can_fetch = None
+    # 获取 GitHub Actions 仓库和运行 ID
+    run_id = os.getenv('GITHUB_RUN_ID')
+    repo_info = os.getenv('GITHUB_REPOSITORY')  # 获取仓库信息
+    bot_agent = f'MyGithubActionsBot/1.0 (+https://github.com/{repo_info}; run_id={run_id})'
+    
+    hostname = urlparse(url).hostname
+    robots_url = urljoin(url, "/robots.txt")
+    
+    rp = RobotFileParser()
+    rp.set_url(robots_url)
+    
+    try:
+        rp.read()
+        can_fetch = rp.can_fetch(bot_agent, url)  # 使用原始url进行权限查询
+        if not can_fetch:
+            print(f"{hostname} :命中robots.txt，已跳过")
+    except Exception as e:
+        print(f"检查robots.txt失败: {e}  默认允许")       
+    return can_fetch
+    
 
 def getIpFromip138(site):
     '''
@@ -31,6 +56,9 @@ def getIpFromip138(site):
         'Referer': 'https://site.ip138.com/' + site
             }
     trueip = []
+    if check_robots_txt(url):
+        trueip = getIpFromipapi(site)
+        return trueip
     for i in range(3):
         try:
             res = requests.get(url, params=params, headers=headers)
@@ -118,6 +146,9 @@ def getIpipaddress(site):
                'Host': 'sites.ipaddress.com'}
     url = "https://sites.ipaddress.com/" + site
     trueip = []
+    if check_robots_txt(url):
+        trueip = getIpFromip138(site)
+        return trueip
     try:
         res = requests.get(url, headers=headers, timeout=20, allow_redirects=False)
         soup = BeautifulSoup(res.text, 'html.parser')
