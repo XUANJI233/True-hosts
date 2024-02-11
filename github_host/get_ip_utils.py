@@ -18,6 +18,29 @@ import socket
 import threading
 from urllib.parse import urlparse, urljoin
 from urllib.robotparser import RobotFileParser
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
+
+# 创建一个 Session 对象
+session = requests.Session()
+
+# 创建一个 Retry 对象
+retry_strategy = Retry(
+    total=3,  # 总共尝试的次数
+    backoff_factor=1,  # 指数退避延迟（第 n 次重试将等待 {backoff factor} * (2 ^ (n - 1)) 秒）
+    status_forcelist=[429, 500, 502, 503, 504],  # 需要重试的HTTP状态码列表
+    method_whitelist=["GET"] 
+)
+
+# 将 Retry 对象添加到已经创建的 Session 对象中
+adapter = HTTPAdapter(max_retries=retry_strategy)
+session.mount("http://", adapter)
+session.mount("https://", adapter)
+
+
+
+
+
 
 # 遵循robots.txt
 def check_robots_txt(url):
@@ -68,7 +91,7 @@ def getIpFromip138(site):
         return trueip
     for i in range(3):
         try:
-            res = requests.get(url, params=params, headers=headers)
+            res = session.get(url, params=params, headers=headers)
             res = res.json()
             if res["status"] == True:
                 for item in res["data"]:
@@ -94,7 +117,7 @@ def getIpFromipapi(site):
     trueip = set()
     for i in range(3):
         try:
-            res = requests.get(url, headers=headers, timeout=5)
+            res = session.get(url, headers=headers, timeout=5)
             res = json.loads(res.text)
             if res["status"] == "success":
                 if not trueip:
@@ -111,7 +134,7 @@ def getIpFromChinaz(site):
     url = "http://ipw.cn/ipv6webcheck/?site=" + site
     trueip = None
     try:
-        res = requests.get(url, headers=headers, timeout=5)
+        res = session.get(url, headers=headers, timeout=5)
         soup = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all('span', {"target": "_blank"})
         for c in result:
@@ -157,7 +180,7 @@ def getIpipaddress(site):
         trueip = getIpFromip138(site)
         return trueip
     try:
-        res = requests.get(url, headers=headers, timeout=20, allow_redirects=False)
+        res = session.get(url, headers=headers, timeout=20, allow_redirects=False)
         soup = BeautifulSoup(res.text, 'html.parser')
         result = soup.find_all(id='tabpanel-dns-a')
         for c in result:
